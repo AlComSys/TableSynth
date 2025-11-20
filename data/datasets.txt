@@ -1,0 +1,9 @@
+https://www.kaggle.com/datasets/ismetsemedov/transactions
+
+https://www.kaggle.com/datasets/computingvictor/transactions-fraud-datasets
+
+https://www.kaggle.com/datasets/prasad22/retail-transactions-dataset
+
+https://www.kaggle.com/datasets/abhishekrp1517/online-retail-transactions-dataset
+
+https://www.kaggle.com/datasets/aryan208/financial-transactions-dataset-for-fraud-detection
