@@ -1250,8 +1250,11 @@ def generate_synth_deltas_poisson_split(deltas, n_splits, opt_time, xi_array, q_
 def generate_synth_time(data, client_id, time_id, model='normal', n_splits=2, opt_time=True, xi_array=[], q_array=[]): 
     
     deltas_by_clients = data.groupby(client_id)[time_id].apply(lambda x: (x - x.shift()).dt.days.values[1:])
-    ########### 14.11.2025
-    deltas_by_clients = deltas_by_clients.apply(lambda x: x if len(x)>0 else np.array([(data[time_id].max()-data[time_id].min()).days]))
+    ########### 20.11.2025 
+    b = np.array([len(x) for x in deltas_by_clients])
+    if min(b)<3:
+        deltas_by_clients = deltas_by_clients.apply(lambda x: x if len(x)>1 else np.array([fdelta//2,fdelta]))
+        model = 'normal'
     ############
     first_dates_by_clients = data.groupby(client_id)[time_id].first().values
     length_dates_by_clients = data.groupby(client_id)[time_id].count().values - 1
