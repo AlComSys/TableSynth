@@ -1190,7 +1190,7 @@ def optimize_xi_by_deltas_split(deltas, n_splits):
         for i in idx_quantiles:
             if i != []:
                 delta_array.append(delta[i])
-                xi0_array.append(np.median(delta[i]) if len(i)>1 else delta[i][0])
+                xi0_array.append(np.median(delta[i]))
                 if np.median(delta[i]) == 0:
                     bnds_array.append([(0.0, 0.0)])
                 else:    
@@ -1203,11 +1203,8 @@ def optimize_xi_by_deltas_split(deltas, n_splits):
         xiP_array_delta = []
     
         for i in range(len(delta_array)):
-            if len(delta_array[i])>1: ###14.11.2025
-                x_opt = minimize(lambda x: optimize_xi(x, delta_array[i], k, len(delta_array[i])), x0=[xi0_array[i]],\
+            x_opt = minimize(lambda x: optimize_xi(x, delta_array[i], k, len(delta_array[i])), x0=[xi0_array[i]],\
                             tol=1e-6, bounds=bnds_array[i], options={"maxiter": 3000}, method='L-BFGS-B').x
-            else: 
-                x_opt = [xi0_array[i]]
             xiP_array_delta.append(x_opt)
 
         xiP_array.append(xiP_array_delta)
